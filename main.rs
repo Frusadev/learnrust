@@ -37,6 +37,21 @@ fn transpose(m: [[i32; 3]; 3]) -> [[i32; 3]; 3] {
     final_matrix
 }
 
+fn magnitude(vec3: &[f64; 3]) -> f64 {
+    let mut s: f64 = 0.0;
+    for p in vec3 {
+        s += p * p
+    }
+    s.sqrt()
+}
+
+fn normalize(vector: &mut [f64; 3]) {
+    let mg = magnitude(vector);
+    for item in vector {
+        *item /= mg;
+    }
+}
+
 fn main() {
     let fib = finbonacci(12);
     println!("Fib: {fib}");
@@ -56,4 +71,20 @@ fn main() {
     for row in transposed {
         println!("{row:?}")
     }
+
+    let arr = [1, 2, 3, 4, 5];
+    let s: &[i32] = &arr[1..3];
+
+    println!("\nSlice test");
+    println!("{s:?}");
+
+    println!(
+        "Magnitude of a unit vector: {}",
+        magnitude(&[0.0, 1.0, 0.0])
+    );
+
+    let mut v = [1.0, 2.0, 9.0];
+    println!("Magnitude of {v:?}: {}", magnitude(&v));
+    normalize(&mut v);
+    println!("Magnitude of {v:?} after normalization: {}", magnitude(&v));
 }
