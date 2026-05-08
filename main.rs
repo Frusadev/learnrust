@@ -23,9 +23,37 @@ fn collatz_length(n: u64) -> u64 {
     current_length
 }
 
+fn transpose(m: [[i32; 3]; 3]) -> [[i32; 3]; 3] {
+    let mut final_matrix: [[i32; 3]; 3] = [
+        [0, 0, 0], // lol
+        [0, 0, 0],
+        [0, 0, 0],
+    ];
+    for i in 0..3 {
+        for x in 0..3 {
+            final_matrix[i][x] = m[x][i];
+        }
+    }
+    final_matrix
+}
+
 fn main() {
     let fib = finbonacci(12);
     println!("Fib: {fib}");
     let cl = collatz_length(11);
-    println!("Collatz Length: {cl}")
+    println!("Collatz Length: {cl}");
+    let matrix_to_transpose = [
+        [101, 102, 103], // <-- the comment makes rustfmt add a newline
+        [201, 202, 203],
+        [301, 302, 303],
+    ];
+    println!("Original:");
+    for row in matrix_to_transpose {
+        println!("{row:?}")
+    }
+    let transposed = transpose(matrix_to_transpose);
+    println!("Transposed: ");
+    for row in transposed {
+        println!("{row:?}")
+    }
 }
