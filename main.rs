@@ -1,68 +1,23 @@
-enum TaskState {
-    Running,
-    Stopped,
-    Failed(String),
-}
-
-struct Task {
-    id: u32,
-    state: TaskState,
-}
-
-impl Task {
-    fn restart(&mut self) {
-        match self.state {
-            TaskState::Failed(_) => {
-                self.state = TaskState::Running;
-                println!("Task {} started", &self.id);
-            }
-            TaskState::Stopped => {
-                self.state = TaskState::Running;
-                println!("Task {} started", &self.id);
-            }
-            _ => {
-                println!("Task {} is already running", &self.id)
-            }
-        }
-    }
-}
-
-fn print_state(state: &TaskState) {
-    let text = match state {
-        TaskState::Running => String::from("The task is running"),
-        TaskState::Stopped => String::from("The task is not running"),
-        TaskState::Failed(s) => format!("The task failed to start due to {}", s),
-    };
-    println!("{}", text);
-}
-
-fn is_running(state: &TaskState) -> bool {
-    let result: bool;
-    match state {
-        TaskState::Running => result = true,
-        _ => result = false,
-    }
-    return result;
-}
-
 fn main() {
-    let running_task = TaskState::Running;
-    let stopped_task = TaskState::Stopped;
-    let failed_task = TaskState::Failed(String::from("A specific reason"));
+    let mut numbers = vec![1, 2, 3, 4];
+    numbers.push(12);
+    numbers.push(32);
 
-    print_state(&running_task);
-    print_state(&stopped_task);
-    print_state(&failed_task);
+    let first = numbers.get(0);
+    match &first {
+        Some(value) => println!("This is the first value: {}", value),
+        None => println!("No value found"),
+    }
 
-    println!("Is running? : {}", is_running(&running_task));
-    println!("Is running? : {}", is_running(&stopped_task));
-    println!("Is running? : {}", is_running(&failed_task));
+    for number in &numbers {
+        println!("{number}");
+    }
 
-    let mut task = Task {
-        id: 1,
-        state: failed_task,
-    };
+    for number_to_square in numbers.iter_mut() {
+        *number_to_square *= *number_to_square;
+    }
 
-    task.restart();
+    for number in numbers {
+        println!("{number}")
+    }
 }
-
