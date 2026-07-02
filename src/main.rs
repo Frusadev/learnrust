@@ -1,9 +1,8 @@
-mod math;
-mod process;
-use crate::math::add;
+fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
+    if x.len() > y.len() { x } else { y }
+}
 
 fn main() {
-    println!("Hello, world!");
-    let added = add(&1, &2);
-    println!("{added}")
+    let long = longest("This is daniel!!!", "Hello world!");
+    println!("{long}")
 }
